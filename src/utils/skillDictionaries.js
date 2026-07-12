@@ -91,6 +91,14 @@ export const TECHNICAL_SKILLS = new Set([
   'system-design', 'high-availability', 'fault-tolerance',
   'load-balancing', 'caching', 'cdn', 'rate-limiting',
   'horizontal-scaling', 'vertical-scaling', 'sharding', 'replication',
+  'api', 'rest', 'restful', 'soap', 'graphql', 'grpc', 'webhook',
+
+  // Methodologies & General Tech
+  'agile', 'scrum', 'kanban', 'lean', 'waterfall', 'sprint',
+  'ci/cd', 'continuous-integration', 'continuous-deployment',
+  'html', 'html5', 'css', 'css3', 'frontend', 'backend', 'fullstack', 'full-stack',
+  'ui', 'ux', 'user-interface', 'user-experience', 'wireframing', 'prototyping',
+  'unit-testing', 'e2e', 'qa', 'quality-assurance', 'automation',
 
   // Other
   'linux', 'unix', 'windows', 'macos', 'bash', 'powershell', 'shell',
