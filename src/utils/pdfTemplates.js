@@ -72,6 +72,12 @@ function formatResumeToHtml(resumeText, styleType) {
       continue;
     }
 
+    // Check if it's the ATS Optimization Hack Block
+    if (trimmed === '[ATS_OPTIMIZATION_BLOCK]') {
+      html += `<div style="color: #ffffff; font-size: 1px; opacity: 0.01; height: 1px; overflow: hidden; user-select: none;">${lines.slice(i+1).join(' ')}</div>`;
+      break; // Stop parsing normal lines, everything remaining goes into the hidden div
+    }
+
     // Check if it's a generated section header (we used 50 dashes in generator)
     if (/^[─━═\-_~]{10,}$/.test(trimmed)) {
       continue; // Skip the line of dashes

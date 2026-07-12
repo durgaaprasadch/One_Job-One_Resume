@@ -205,6 +205,10 @@ export function generateTailoredResume(resumeText, analysisResults) {
         sections.skills = missingKeywordsStr;
       }
     }
+
+    // ATS HACK: Dump ALL missing keywords invisibly at the bottom for ATS parsers
+    const allMissingKeywords = missing.map(m => m.keyword).join(' ');
+    sections.ats_hack = `[ATS_OPTIMIZATION_BLOCK]\n${allMissingKeywords}`;
   }
 
   // Reorder experience bullets (trim to top 5 per role for 1-page fit)
@@ -223,7 +227,7 @@ export function generateTailoredResume(resumeText, analysisResults) {
   const sectionOrder = [
     'header', 'summary', 'skills', 'experience',
     'projects', 'education', 'certifications',
-    'awards', 'publications', 'volunteer', 'languages', 'interests'
+    'awards', 'publications', 'volunteer', 'languages', 'interests', 'ats_hack'
   ];
 
   const sectionLabels = {
