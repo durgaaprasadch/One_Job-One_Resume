@@ -73,19 +73,28 @@ function reorderSkills(skillsText, matchedKeywords) {
   const resultLines = [];
 
   for (const line of lines) {
+    // Isolate prefix if it exists (e.g. "Programming Languages : ")
+    let prefix = '';
+    let skillsPart = line;
+    const colonIndex = line.indexOf(':');
+    if (colonIndex !== -1 && colonIndex < 50) {
+      prefix = line.substring(0, colonIndex + 1) + ' ';
+      skillsPart = line.substring(colonIndex + 1).trim();
+    }
+
     // Determine the delimiter used in this line
     let delimiter = ', ';
-    if (line.includes(' | ')) delimiter = ' | ';
-    else if (line.includes(' • ')) delimiter = ' • ';
-    else if (line.includes(' · ')) delimiter = ' · ';
-    else if (!line.includes(',')) {
+    if (skillsPart.includes(' | ')) delimiter = ' | ';
+    else if (skillsPart.includes(' • ')) delimiter = ' • ';
+    else if (skillsPart.includes(' · ')) delimiter = ' · ';
+    else if (!skillsPart.includes(',')) {
       // Not a list line, leave it exactly as is
       resultLines.push(line);
       continue;
     }
 
     // Split by the detected delimiter
-    const items = line.split(delimiter.trim()).map(s => s.trim()).filter(Boolean);
+    const items = skillsPart.split(delimiter.trim()).map(s => s.trim()).filter(Boolean);
     
     const matched = [];
     const unmatched = [];
@@ -100,7 +109,7 @@ function reorderSkills(skillsText, matchedKeywords) {
       else unmatched.push(skill);
     }
 
-    resultLines.push([...matched, ...unmatched].join(delimiter));
+    resultLines.push(prefix + [...matched, ...unmatched].join(delimiter));
   }
 
   return resultLines.join('\n');
