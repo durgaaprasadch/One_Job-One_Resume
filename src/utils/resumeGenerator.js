@@ -184,11 +184,17 @@ export function generateTailoredResume(resumeText, analysisResults) {
 
   // AUTO-INJECT: Force missing keywords into skills to guarantee a 100% score
   if (missing && missing.length > 0) {
-    const missingKeywords = missing.map(m => m.keyword).join(', ');
-    if (sections.skills) {
-      sections.skills = missingKeywords + ', ' + sections.skills;
-    } else {
-      sections.skills = missingKeywords;
+    const missingTechnical = missing
+      .filter(m => m.category === 'technical' || m.category === 'certification')
+      .map(m => m.keyword);
+
+    if (missingTechnical.length > 0) {
+      const missingKeywordsStr = missingTechnical.join(', ');
+      if (sections.skills) {
+        sections.skills = missingKeywordsStr + ', ' + sections.skills;
+      } else {
+        sections.skills = missingKeywordsStr;
+      }
     }
   }
 
