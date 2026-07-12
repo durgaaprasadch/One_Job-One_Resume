@@ -20,8 +20,8 @@ function wrapContent(content, templateStyles, styleType) {
       ${fontImport}
       .pdf-container {
         font-family: ${fontFamily};
-        font-size: 11px;
-        line-height: 1.5;
+        font-size: 10px;
+        line-height: 1.35;
         color: #111;
         ${templateStyles}
       }
@@ -82,10 +82,10 @@ function formatResumeToHtml(resumeText, styleType) {
     if (isFirstLine && trimmed.length < 100) {
       if (styleType === 'styled') {
         html += `<div style="font-size: 26px; font-weight: 700; text-align: center; color: #0f172a; margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px;">${trimmed}</div>`;
-        html += `<div class="styled-header-line" style="font-size: 11px; color: #475569; margin-bottom: 24px; line-height: 1.6;">`;
+        html += `<div class="styled-header-line" style="font-size: 10px; color: #475569; margin-bottom: 16px; line-height: 1.4;">`;
       } else {
-        html += `<div style="font-size: 18px; font-weight: bold; text-align: center; margin-bottom: 8px;">${trimmed}</div>`;
-        html += `<div style="text-align: center; margin-bottom: 16px;">`;
+        html += `<div style="font-size: 16px; font-weight: bold; text-align: center; margin-bottom: 6px;">${trimmed}</div>`;
+        html += `<div style="text-align: center; margin-bottom: 12px;">`;
       }
       isFirstLine = false;
       continue;
@@ -119,9 +119,9 @@ function formatResumeToHtml(resumeText, styleType) {
       }
       
       if (styleType === 'styled') {
-        html += `<h2 style="font-size: 13px; font-weight: 600; margin: 20px 0 10px 0; border-bottom: 2px solid #3b82f6; color: #1e3a8a; padding-bottom: 4px; letter-spacing: 0.5px;">${trimmed}</h2>`;
+        html += `<h2 style="font-size: 12px; font-weight: 600; margin: 12px 0 6px 0; border-bottom: 2px solid #3b82f6; color: #1e3a8a; padding-bottom: 2px; letter-spacing: 0.5px;">${trimmed}</h2>`;
       } else {
-        html += `<h2 style="font-size: 13px; margin: 16px 0 8px 0; font-weight: bold;">${trimmed}</h2><hr style="border: 0; border-bottom: 1px solid #ccc; margin-bottom: 8px;" />`;
+        html += `<h2 style="font-size: 12px; margin: 12px 0 4px 0; font-weight: bold;">${trimmed}</h2><hr style="border: 0; border-bottom: 1px solid #ccc; margin-bottom: 6px;" />`;
       }
       continue;
     }
@@ -176,9 +176,9 @@ export function generatePdfHtml(resumeText, templateType) {
   const structuredHtml = formatResumeToHtml(resumeText, templateType);
 
   if (templateType === 'styled') {
-    return wrapContent(structuredHtml, 'padding: 40px; max-width: 800px; margin: 0 auto; background-color: #ffffff;', templateType);
+    return wrapContent(structuredHtml, 'padding: 20px; max-width: 800px; margin: 0 auto; background-color: #ffffff;', templateType);
   }
 
   // ATS Safe - Plain
-  return wrapContent(structuredHtml, 'padding: 40px; max-width: 800px; margin: 0 auto;', templateType);
+  return wrapContent(structuredHtml, 'padding: 20px; max-width: 800px; margin: 0 auto;', templateType);
 }
