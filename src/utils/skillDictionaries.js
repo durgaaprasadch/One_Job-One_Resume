@@ -1,114 +1,155 @@
-// Curated skill dictionaries for intelligent categorization
+// ═══════════════════════════════════════════════════════════════
+// Single source of truth: categorized technical skills.
+// Adding a skill here AUTOMATICALLY enables:
+//   1. Keyword recognition (analyzer.js)
+//   2. Smart grouped injection (resumeGenerator.js)
+// ═══════════════════════════════════════════════════════════════
 
-export const TECHNICAL_SKILLS = new Set([
-  // Programming Languages
-  'javascript', 'typescript', 'python', 'java', 'c', 'c++', 'c#', 'csharp',
-  'ruby', 'go', 'golang', 'rust', 'swift', 'kotlin', 'scala', 'php',
-  'perl', 'r', 'matlab', 'dart', 'lua', 'haskell', 'elixir', 'clojure',
-  'objective-c', 'assembly', 'fortran', 'cobol', 'groovy', 'julia',
-  'solidity', 'verilog', 'vhdl',
+export const TECHNICAL_SKILLS_BY_CATEGORY = {
+  'Programming Languages': [
+    'javascript', 'typescript', 'python', 'java', 'c', 'c++', 'c#', 'csharp',
+    'ruby', 'go', 'golang', 'rust', 'swift', 'kotlin', 'scala', 'php',
+    'perl', 'r', 'matlab', 'dart', 'lua', 'haskell', 'elixir', 'clojure',
+    'objective-c', 'assembly', 'fortran', 'cobol', 'groovy', 'julia',
+    'solidity', 'verilog', 'vhdl',
+  ],
 
-  // Frontend
-  'react', 'reactjs', 'react.js', 'angular', 'angularjs', 'vue', 'vuejs',
-  'vue.js', 'svelte', 'nextjs', 'next.js', 'nuxt', 'nuxtjs', 'gatsby',
-  'remix', 'astro', 'ember', 'backbone', 'jquery', 'bootstrap', 'tailwind',
-  'tailwindcss', 'material-ui', 'mui', 'chakra', 'ant-design', 'antd',
-  'styled-components', 'sass', 'scss', 'less', 'webpack', 'vite', 'parcel',
-  'rollup', 'babel', 'eslint', 'prettier', 'storybook', 'redux', 'zustand',
-  'mobx', 'recoil', 'tanstack', 'react-query', 'swr', 'framer-motion',
-  'three.js', 'threejs', 'd3', 'd3.js', 'chart.js', 'highcharts',
-  'cypress', 'playwright', 'puppeteer', 'jest', 'vitest', 'mocha',
-  'jasmine', 'karma', 'enzyme', 'testing-library', 'rtl',
+  'Frontend': [
+    'react', 'reactjs', 'react.js', 'angular', 'angularjs', 'vue', 'vuejs',
+    'vue.js', 'svelte', 'nextjs', 'next.js', 'nuxt', 'nuxtjs', 'gatsby',
+    'remix', 'astro', 'ember', 'backbone', 'jquery', 'bootstrap', 'tailwind',
+    'tailwindcss', 'material-ui', 'mui', 'chakra', 'ant-design', 'antd',
+    'styled-components', 'sass', 'scss', 'less', 'webpack', 'vite', 'parcel',
+    'rollup', 'babel', 'eslint', 'prettier', 'storybook', 'redux', 'zustand',
+    'mobx', 'recoil', 'tanstack', 'react-query', 'swr', 'framer-motion',
+    'three.js', 'threejs', 'd3', 'd3.js', 'chart.js', 'highcharts',
+    'html', 'html5', 'css', 'css3', 'frontend', 'ui', 'ux',
+    'user-interface', 'user-experience', 'wireframing', 'prototyping',
+    'visualization', 'interfaces',
+  ],
 
-  // Backend
-  'node', 'nodejs', 'node.js', 'express', 'expressjs', 'fastify', 'koa',
-  'nestjs', 'nest.js', 'django', 'flask', 'fastapi', 'tornado',
-  'spring', 'springboot', 'spring-boot', 'hibernate', 'quarkus', 'micronaut',
-  'rails', 'ruby-on-rails', 'laravel', 'symfony', 'codeigniter',
-  'asp.net', 'aspnet', '.net', 'dotnet', 'blazor', 'wpf', 'winforms',
-  'gin', 'echo', 'fiber', 'actix', 'rocket', 'axum',
-  'graphql', 'grpc', 'protobuf', 'websocket', 'websockets',
-  'microservices', 'monolith', 'serverless', 'lambda', 'event-driven',
+  'Backend': [
+    'node', 'nodejs', 'node.js', 'express', 'expressjs', 'fastify', 'koa',
+    'nestjs', 'nest.js', 'django', 'flask', 'fastapi', 'tornado',
+    'spring', 'springboot', 'spring-boot', 'hibernate', 'quarkus', 'micronaut',
+    'rails', 'ruby-on-rails', 'laravel', 'symfony', 'codeigniter',
+    'asp.net', 'aspnet', '.net', 'dotnet', 'blazor', 'wpf', 'winforms',
+    'gin', 'echo', 'fiber', 'actix', 'rocket', 'axum',
+    'graphql', 'grpc', 'protobuf', 'websocket', 'websockets',
+    'microservices', 'monolith', 'serverless', 'event-driven',
+    'api', 'rest', 'restful', 'soap', 'webhook', 'endpoints',
+    'backend', 'fullstack', 'full-stack', 'services',
+  ],
 
-  // Databases & Brokers
-  'mysql', 'postgresql', 'postgres', 'sqlite', 'oracle', 'mssql',
-  'sql-server', 'mariadb', 'mongodb', 'mongoose', 'dynamodb', 'cassandra',
-  'couchdb', 'couchbase', 'neo4j', 'redis', 'memcached', 'elasticsearch',
-  'opensearch', 'solr', 'influxdb', 'timescaledb', 'cockroachdb',
-  'firestore', 'supabase', 'prisma', 'sequelize', 'typeorm', 'knex',
-  'drizzle', 'hibernate', 'mybatis', 'jpa', 'nosql', 'sql', 'rabbitmq', 'kafka',
+  'Databases & Messaging': [
+    'mysql', 'postgresql', 'postgres', 'sqlite', 'oracle', 'mssql',
+    'sql-server', 'mariadb', 'mongodb', 'mongoose', 'dynamodb', 'cassandra',
+    'couchdb', 'couchbase', 'neo4j', 'redis', 'memcached', 'elasticsearch',
+    'opensearch', 'solr', 'influxdb', 'timescaledb', 'cockroachdb',
+    'firestore', 'supabase', 'prisma', 'sequelize', 'typeorm', 'knex',
+    'drizzle', 'mybatis', 'jpa', 'nosql', 'sql', 'rds',
+    'rabbitmq', 'kafka', 'activemq', 'nats', 'pulsar', 'zeromq',
+  ],
 
-  // Cloud & DevOps
-  'aws', 'azure', 'gcp', 'google-cloud', 'heroku', 'vercel', 'netlify',
-  'digitalocean', 'linode', 'cloudflare', 'ec2', 's3', 'lambda', 'ecs',
-  'eks', 'fargate', 'rds', 'sqs', 'sns', 'cloudwatch', 'cloudformation',
-  'terraform', 'pulumi', 'ansible', 'puppet', 'chef', 'saltstack',
-  'docker', 'kubernetes', 'k8s', 'helm', 'istio', 'envoy', 'nginx',
-  'apache', 'caddy', 'traefik', 'haproxy', 'consul', 'vault',
-  'jenkins', 'github-actions', 'gitlab-ci', 'circleci', 'travis',
-  'argo', 'argocd', 'tekton', 'spinnaker', 'bamboo',
-  'prometheus', 'grafana', 'datadog', 'splunk', 'elk', 'logstash',
-  'kibana', 'new-relic', 'newrelic', 'jaeger', 'zipkin', 'opentelemetry',
+  'Cloud & DevOps': [
+    'aws', 'azure', 'gcp', 'google-cloud', 'heroku', 'vercel', 'netlify',
+    'digitalocean', 'linode', 'cloudflare', 'ec2', 's3', 'lambda', 'ecs',
+    'eks', 'fargate', 'sqs', 'sns', 'cloudwatch', 'cloudformation',
+    'terraform', 'pulumi', 'ansible', 'puppet', 'chef', 'saltstack',
+    'docker', 'kubernetes', 'k8s', 'helm', 'istio', 'envoy', 'nginx',
+    'apache', 'caddy', 'traefik', 'haproxy', 'consul', 'vault',
+    'jenkins', 'github-actions', 'gitlab-ci', 'circleci', 'travis',
+    'argo', 'argocd', 'tekton', 'spinnaker', 'bamboo',
+    'prometheus', 'grafana', 'datadog', 'splunk', 'elk', 'logstash',
+    'kibana', 'new-relic', 'newrelic', 'jaeger', 'zipkin', 'opentelemetry',
+    'ci/cd', 'continuous-integration', 'continuous-deployment',
+    'devops', 'devsecops', 'cluster', 'scale', 'platform', 'infrastructure',
+  ],
 
-  // Mobile
-  'android', 'ios', 'react-native', 'flutter', 'xamarin', 'ionic',
-  'cordova', 'capacitor', 'swiftui', 'jetpack-compose', 'compose',
+  'Mobile': [
+    'android', 'ios', 'react-native', 'flutter', 'xamarin', 'ionic',
+    'cordova', 'capacitor', 'swiftui', 'jetpack-compose', 'compose',
+  ],
 
-  // Data & ML/AI
-  'pandas', 'numpy', 'scipy', 'scikit-learn', 'sklearn', 'tensorflow',
-  'pytorch', 'keras', 'xgboost', 'lightgbm', 'catboost', 'opencv',
-  'nlp', 'natural-language-processing', 'computer-vision', 'deep-learning',
-  'machine-learning', 'reinforcement-learning', 'neural-network',
-  'cnn', 'rnn', 'lstm', 'transformer', 'bert', 'gpt', 'llm',
-  'langchain', 'llamaindex', 'huggingface', 'openai',
-  'spark', 'hadoop', 'hive', 'kafka', 'flink', 'airflow', 'dagster',
-  'dbt', 'snowflake', 'bigquery', 'redshift', 'databricks', 'delta-lake',
-  'tableau', 'power-bi', 'powerbi', 'looker', 'metabase', 'superset',
-  'etl', 'elt', 'data-pipeline', 'data-warehouse', 'data-lake',
-  'data-engineering', 'data-science', 'data-analytics',
+  'Data & ML/AI': [
+    'pandas', 'numpy', 'scipy', 'scikit-learn', 'sklearn', 'tensorflow',
+    'pytorch', 'keras', 'xgboost', 'lightgbm', 'catboost', 'opencv',
+    'nlp', 'natural-language-processing', 'computer-vision', 'deep-learning',
+    'machine-learning', 'reinforcement-learning', 'neural-network',
+    'cnn', 'rnn', 'lstm', 'transformer', 'bert', 'gpt', 'llm',
+    'langchain', 'llamaindex', 'huggingface', 'openai',
+    'spark', 'hadoop', 'hive', 'flink', 'airflow', 'dagster',
+    'dbt', 'snowflake', 'bigquery', 'redshift', 'databricks', 'delta-lake',
+    'tableau', 'power-bi', 'powerbi', 'looker', 'metabase', 'superset',
+    'etl', 'elt', 'data-pipeline', 'data-warehouse', 'data-lake',
+    'data-engineering', 'data-science', 'data-analytics', 'analytics',
+  ],
 
-  // Security
-  'oauth', 'oauth2', 'jwt', 'saml', 'ldap', 'sso', 'rbac', 'iam',
-  'encryption', 'tls', 'ssl', 'https', 'cors', 'csrf', 'xss',
-  'owasp', 'penetration-testing', 'pen-testing', 'siem', 'soar',
-  'firewall', 'vpn', 'zero-trust', 'soc', 'compliance',
+  'Security': [
+    'oauth', 'oauth2', 'jwt', 'saml', 'ldap', 'sso', 'rbac', 'iam',
+    'encryption', 'tls', 'ssl', 'https', 'cors', 'csrf', 'xss',
+    'owasp', 'penetration-testing', 'pen-testing', 'siem', 'soar',
+    'firewall', 'vpn', 'zero-trust', 'soc', 'compliance',
+  ],
 
-  // Version Control & Collaboration
-  'git', 'github', 'gitlab', 'bitbucket', 'svn', 'mercurial',
-  'jira', 'confluence', 'trello', 'asana', 'notion', 'slack',
-  'figma', 'sketch', 'adobe-xd', 'invision', 'zeplin',
+  'Testing & QA': [
+    'cypress', 'playwright', 'puppeteer', 'jest', 'vitest', 'mocha',
+    'jasmine', 'karma', 'enzyme', 'testing-library', 'rtl',
+    'unit-testing', 'unit-tests', 'unit-test', 'integration-testing',
+    'e2e-testing', 'e2e', 'end-to-end', 'tdd', 'bdd',
+    'selenium', 'appium', 'loadrunner', 'jmeter', 'gatling', 'k6',
+    'postman', 'insomnia', 'swagger', 'openapi',
+    'qa', 'quality-assurance', 'automation', 'tests', 'testing',
+  ],
 
-  // Testing
-  'unit-testing', 'integration-testing', 'e2e-testing', 'tdd', 'bdd',
-  'selenium', 'appium', 'loadrunner', 'jmeter', 'gatling', 'k6',
-  'postman', 'insomnia', 'swagger', 'openapi',
+  'Architecture & Methodologies': [
+    'solid', 'dry', 'kiss', 'yagni', 'design-patterns', 'singleton',
+    'factory', 'observer', 'strategy', 'decorator', 'adapter', 'proxy',
+    'clean-architecture', 'hexagonal', 'ddd', 'domain-driven-design',
+    'cqrs', 'event-sourcing', 'saga',
+    'system-design', 'high-availability', 'fault-tolerance',
+    'load-balancing', 'caching', 'cdn', 'rate-limiting',
+    'horizontal-scaling', 'vertical-scaling', 'sharding', 'replication',
+    'architecture', 'architectures', 'architectural', 'patterns',
+    'agile', 'scrum', 'kanban', 'lean', 'waterfall', 'sprint',
+  ],
 
-  // Architecture & Patterns
-  'solid', 'dry', 'kiss', 'yagni', 'design-patterns', 'singleton',
-  'factory', 'observer', 'strategy', 'decorator', 'adapter', 'proxy',
-  'clean-architecture', 'hexagonal', 'ddd', 'domain-driven-design',
-  'cqrs', 'event-sourcing', 'saga',
-  'system-design', 'high-availability', 'fault-tolerance',
-  'load-balancing', 'caching', 'cdn', 'rate-limiting',
-  'horizontal-scaling', 'vertical-scaling', 'sharding', 'replication',
-  'api', 'rest', 'restful', 'soap', 'graphql', 'grpc', 'webhook', 'endpoints',
-  'architecture', 'architectures', 'platform', 'scale', 'cluster',
+  'Tools & Platforms': [
+    'git', 'github', 'gitlab', 'bitbucket', 'svn', 'mercurial',
+    'jira', 'confluence', 'trello', 'asana', 'notion', 'slack',
+    'figma', 'sketch', 'adobe-xd', 'invision', 'zeplin',
+    'linux', 'unix', 'windows', 'macos', 'bash', 'powershell', 'shell',
+    'regex', 'vim', 'emacs', 'vscode', 'open-source',
+    'blockchain', 'web3', 'ethereum', 'smart-contracts',
+    'iot', 'embedded', 'rtos', 'fpga',
+    'ar', 'vr', 'xr', 'unity', 'unreal',
+  ],
+};
 
-  // Methodologies & General Tech
-  'agile', 'scrum', 'kanban', 'lean', 'waterfall', 'sprint',
-  'ci/cd', 'continuous-integration', 'continuous-deployment',
-  'html', 'html5', 'css', 'css3', 'frontend', 'backend', 'fullstack', 'full-stack',
-  'ui', 'ux', 'user-interface', 'user-experience', 'wireframing', 'prototyping',
-  'unit-testing', 'unit-tests', 'unit-test', 'e2e', 'end-to-end', 'qa', 'quality-assurance', 'automation',
-  'visualization', 'analytics', 'open-source',
+// ── Auto-derive flat set for fast lookups ──────────────────────
+export const TECHNICAL_SKILLS = new Set(
+  Object.values(TECHNICAL_SKILLS_BY_CATEGORY).flat()
+);
 
-  // Other
-  'linux', 'unix', 'windows', 'macos', 'bash', 'powershell', 'shell',
-  'regex', 'vim', 'emacs', 'vscode',
-  'blockchain', 'web3', 'ethereum', 'smart-contracts',
-  'iot', 'embedded', 'rtos', 'fpga',
-  'ar', 'vr', 'xr', 'unity', 'unreal',
-]);
+// ── Build reverse lookup: skill → category name ────────────────
+const _skillToCategoryMap = new Map();
+for (const [category, skills] of Object.entries(TECHNICAL_SKILLS_BY_CATEGORY)) {
+  for (const skill of skills) {
+    _skillToCategoryMap.set(skill, category);
+  }
+}
+
+/**
+ * Get the sub-category label for a given skill keyword.
+ * Returns the category name or null if not found.
+ */
+export function getSkillCategory(keyword) {
+  const lower = keyword.toLowerCase().replace(/\s+/g, '-');
+  const lowerSpace = keyword.toLowerCase();
+  return _skillToCategoryMap.get(lower) || _skillToCategoryMap.get(lowerSpace) || null;
+}
+
+// ── Other dictionaries ─────────────────────────────────────────
 
 export const SOFT_SKILLS = new Set([
   'leadership', 'communication', 'teamwork', 'collaboration',
