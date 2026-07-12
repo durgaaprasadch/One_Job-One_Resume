@@ -20,7 +20,7 @@ export default function TailoredResume({
     }
     try {
       await navigator.clipboard.writeText(tailoredResume);
-      showToast('Resume copied to clipboard!');
+      showToast('Copied! Thank you for using One Job, One Resume! 🚀', 'success');
     } catch {
       const textarea = document.createElement('textarea');
       textarea.value = tailoredResume;
@@ -28,7 +28,7 @@ export default function TailoredResume({
       textarea.select();
       document.execCommand('copy');
       document.body.removeChild(textarea);
-      showToast('Resume copied to clipboard!');
+      showToast('Copied! Thank you for using One Job, One Resume! 🚀', 'success');
     }
   }, [tailoredResume, showToast, isIntegrityPassed]);
 
@@ -80,7 +80,7 @@ export default function TailoredResume({
         printFrame.contentWindow.print();
         setTimeout(() => {
           document.body.removeChild(printFrame);
-          showToast('Print dialog opened. Save as PDF.');
+          showToast('Thank you for using One Job, One Resume! Good luck! 🚀', 'success');
         }, 1000);
       }, 800);
       
@@ -108,6 +108,7 @@ export default function TailoredResume({
     a.click();
     URL.revokeObjectURL(url);
     showToast('Text file downloaded!');
+    setTimeout(() => showToast('Thank you for using One Job, One Resume! Good luck! 🚀', 'success'), 1500);
   }, [tailoredResume, showToast, isIntegrityPassed]);
 
   // Handle DOCX export by generating simple HTML and saving as .doc (Word opens it fine)
@@ -138,6 +139,7 @@ export default function TailoredResume({
     a.click();
     URL.revokeObjectURL(url);
     showToast('Word document downloaded!');
+    setTimeout(() => showToast('Thank you for using One Job, One Resume! Good luck! 🚀', 'success'), 1500);
   }, [tailoredResume, showToast, isIntegrityPassed]);
 
   return (
