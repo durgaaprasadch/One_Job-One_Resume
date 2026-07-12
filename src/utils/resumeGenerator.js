@@ -177,6 +177,104 @@ function calculateBulletRelevance(bullet, matchedSet) {
 }
 
 /**
+ * Group injected keywords into resume-friendly sub-categories.
+ */
+const SKILL_SUB_CATEGORIES = {
+  'Frontend Development': new Set([
+    'react', 'reactjs', 'react.js', 'angular', 'angularjs', 'vue', 'vuejs', 'vue.js',
+    'svelte', 'nextjs', 'next.js', 'nuxt', 'gatsby', 'remix', 'astro',
+    'jquery', 'bootstrap', 'tailwind', 'tailwindcss', 'material-ui', 'mui',
+    'sass', 'scss', 'less', 'webpack', 'vite', 'babel', 'eslint',
+    'redux', 'zustand', 'mobx', 'recoil', 'react-query', 'swr',
+    'three.js', 'threejs', 'd3', 'd3.js', 'chart.js', 'highcharts',
+    'html', 'html5', 'css', 'css3', 'frontend', 'ui', 'ux',
+    'storybook', 'framer-motion', 'visualization', 'interfaces',
+    'styled-components', 'ant-design', 'antd', 'chakra',
+  ]),
+  'Backend Development': new Set([
+    'node', 'nodejs', 'node.js', 'express', 'expressjs', 'fastify', 'koa',
+    'nestjs', 'nest.js', 'django', 'flask', 'fastapi',
+    'spring', 'springboot', 'spring-boot', 'hibernate',
+    'rails', 'ruby-on-rails', 'laravel', 'symfony',
+    'asp.net', 'aspnet', '.net', 'dotnet',
+    'graphql', 'grpc', 'protobuf', 'websocket', 'websockets',
+    'microservices', 'serverless', 'lambda', 'event-driven',
+    'rest', 'restful', 'api', 'endpoints', 'services',
+    'kafka', 'rabbitmq', 'celery', 'sidekiq',
+  ]),
+  'Databases': new Set([
+    'mysql', 'postgresql', 'postgres', 'sqlite', 'oracle', 'mssql',
+    'mariadb', 'mongodb', 'mongoose', 'dynamodb', 'cassandra',
+    'neo4j', 'redis', 'memcached', 'elasticsearch', 'opensearch',
+    'firestore', 'supabase', 'prisma', 'sequelize', 'typeorm',
+    'nosql', 'sql', 'rds', 'drizzle', 'knex',
+  ]),
+  'Cloud & DevOps': new Set([
+    'aws', 'azure', 'gcp', 'google-cloud', 'heroku', 'vercel', 'netlify',
+    'ec2', 's3', 'ecs', 'eks', 'fargate', 'sqs', 'sns', 'cloudwatch',
+    'terraform', 'pulumi', 'ansible', 'docker', 'kubernetes', 'k8s',
+    'helm', 'istio', 'nginx', 'jenkins', 'github-actions', 'gitlab-ci',
+    'circleci', 'prometheus', 'grafana', 'datadog', 'splunk',
+    'ci/cd', 'cluster', 'scale', 'platform', 'infrastructure',
+    'devops', 'devsecops',
+  ]),
+  'Architecture & Patterns': new Set([
+    'solid', 'dry', 'kiss', 'design-patterns', 'clean-architecture',
+    'ddd', 'domain-driven-design', 'cqrs', 'event-sourcing', 'saga',
+    'system-design', 'architectures', 'architecture', 'architectural',
+    'patterns', 'agile', 'scrum', 'kanban',
+  ]),
+  'Testing': new Set([
+    'jest', 'cypress', 'playwright', 'puppeteer', 'vitest', 'mocha',
+    'selenium', 'appium', 'jmeter', 'postman', 'swagger',
+    'unit-testing', 'unit-tests', 'e2e', 'end-to-end', 'tdd', 'bdd',
+    'testing', 'tests', 'qa', 'quality-assurance',
+  ]),
+  'Data & Analytics': new Set([
+    'pandas', 'numpy', 'scipy', 'scikit-learn', 'tensorflow', 'pytorch',
+    'spark', 'hadoop', 'airflow', 'dbt', 'snowflake', 'bigquery',
+    'tableau', 'power-bi', 'looker', 'analytics', 'data-engineering',
+    'data-science', 'data-analytics', 'etl', 'elt', 'machine-learning',
+    'deep-learning', 'nlp', 'computer-vision', 'llm',
+  ]),
+  'Soft Skills': new Set([
+    'leadership', 'communication', 'teamwork', 'collaboration',
+    'problem-solving', 'problem solving', 'critical-thinking',
+    'analytical', 'creative', 'creativity', 'adaptability',
+    'time-management', 'mentoring', 'coaching', 'cross-functional',
+    'ownership', 'accountability', 'agile-mindset', 'results-driven',
+  ]),
+};
+
+function groupSkillsBySubCategory(keywords) {
+  const groups = {};
+  const used = new Set();
+
+  for (const [label, skillSet] of Object.entries(SKILL_SUB_CATEGORIES)) {
+    const matched = [];
+    for (const kw of keywords) {
+      const lower = kw.toLowerCase().replace(/\s+/g, '-');
+      const lowerSpace = kw.toLowerCase();
+      if (skillSet.has(lower) || skillSet.has(lowerSpace)) {
+        matched.push(kw);
+        used.add(kw);
+      }
+    }
+    if (matched.length > 0) {
+      groups[label] = matched;
+    }
+  }
+
+  // Anything that didn't match goes into "Other"
+  const remaining = keywords.filter(kw => !used.has(kw));
+  if (remaining.length > 0) {
+    groups['Other'] = remaining;
+  }
+
+  return groups;
+}
+
+/**
  * Generate the tailored resume text.
  * Contract: Reassembles the sections with allowed standard headers.
  */
@@ -191,18 +289,27 @@ export function generateTailoredResume(resumeText, analysisResults) {
     sections.skills = reorderSkills(sections.skills, matched);
   }
 
-  // AUTO-INJECT: Force missing keywords into skills to guarantee a 100% score
+  // AUTO-INJECT: Force missing keywords into skills, grouped by sub-category
   if (missing && missing.length > 0) {
     const missingTechnical = missing
       .filter(m => m.category === 'technical' || m.category === 'certification' || m.category === 'soft')
       .map(m => m.keyword);
 
     if (missingTechnical.length > 0) {
-      const missingKeywordsStr = missingTechnical.join(', ');
-      if (sections.skills) {
-        sections.skills = sections.skills.trim() + '\n' + missingKeywordsStr;
-      } else {
-        sections.skills = missingKeywordsStr;
+      const grouped = groupSkillsBySubCategory(missingTechnical);
+      const groupedLines = [];
+      for (const [label, skills] of Object.entries(grouped)) {
+        if (skills.length > 0) {
+          groupedLines.push(label + ': ' + skills.join(', '));
+        }
+      }
+      if (groupedLines.length > 0) {
+        const injectedText = groupedLines.join('\n');
+        if (sections.skills) {
+          sections.skills = sections.skills.trim() + '\n' + injectedText;
+        } else {
+          sections.skills = injectedText;
+        }
       }
     }
 
