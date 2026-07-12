@@ -111,7 +111,7 @@ function reorderSkills(skillsText, matchedKeywords) {
  * Contract: Only reorders whole bullet points within their respective blocks. 
  * Never modifies the text of the bullets themselves.
  */
-function reorderBullets(experienceText, matchedKeywords) {
+function reorderBullets(experienceText, matchedKeywords, maxBullets = null) {
   if (!experienceText) return '';
 
   const matchedSet = new Set(matchedKeywords.map(m => m.keyword.toLowerCase()));
@@ -128,7 +128,7 @@ function reorderBullets(experienceText, matchedKeywords) {
         // Sort and flush previous block
         const sorted = sortBulletsByRelevance(currentBlock.bullets, matchedSet);
         result.push(...currentBlock.header);
-        result.push(...sorted);
+        result.push(...(maxBullets ? sorted.slice(0, maxBullets) : sorted));
         currentBlock = { header: [line], bullets: [] };
       } else {
         currentBlock.header.push(line);
@@ -142,7 +142,7 @@ function reorderBullets(experienceText, matchedKeywords) {
   if (currentBlock.header.length > 0 || currentBlock.bullets.length > 0) {
     const sorted = sortBulletsByRelevance(currentBlock.bullets, matchedSet);
     result.push(...currentBlock.header);
-    result.push(...sorted);
+    result.push(...(maxBullets ? sorted.slice(0, maxBullets) : sorted));
   }
 
   return result.join('\n');
@@ -182,13 +182,14 @@ export function generateTailoredResume(resumeText, analysisResults) {
     sections.skills = reorderSkills(sections.skills, matched);
   }
 
-  // Reorder experience bullets
+  // Reorder experience bullets (trim to top 5 per role for 1-page fit)
   if (sections.experience) {
-    sections.experience = reorderBullets(sections.experience, matched);
+    sections.experience = reorderBullets(sections.experience, matched, 5);
   }
   
+  // Reorder project bullets (trim to top 3 per project for 1-page fit)
   if (sections.projects) {
-    sections.projects = reorderBullets(sections.projects, matched);
+    sections.projects = reorderBullets(sections.projects, matched, 3);
   }
 
   // NOTE: We DO NOT modify the summary anymore to guarantee integrity.
