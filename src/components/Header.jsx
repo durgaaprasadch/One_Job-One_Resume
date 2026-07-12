@@ -6,9 +6,7 @@ export default function Header() {
         <div>
           <div className="header-title" style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
             <span style={{ fontSize: '2.5rem' }}>ONE</span> 
-            <span style={{ fontSize: '1.2rem', marginTop: '10px' }}>JOB,</span> 
-            <span style={{ fontSize: '2.5rem' }}>ONE</span> 
-            <span style={{ fontSize: '1.2rem', marginTop: '10px' }}>RESUME</span>
+            <span style={{ fontSize: '1.2rem', marginTop: '10px' }}>job resume</span> 
           </div>
           <div className="header-subtitle">Tailor your resume to every job description</div>
         </div>
