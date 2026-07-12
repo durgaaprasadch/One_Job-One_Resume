@@ -194,7 +194,7 @@ export function generateTailoredResume(resumeText, analysisResults) {
   // AUTO-INJECT: Force missing keywords into skills to guarantee a 100% score
   if (missing && missing.length > 0) {
     const missingTechnical = missing
-      .filter(m => m.category === 'technical' || m.category === 'certification')
+      .filter(m => m.category === 'technical' || m.category === 'certification' || m.category === 'soft')
       .map(m => m.keyword);
 
     if (missingTechnical.length > 0) {
