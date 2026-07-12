@@ -1,4 +1,20 @@
+import { useState, useEffect } from 'react';
+
 export default function Header() {
+  const [isDark, setIsDark] = useState(() => {
+    return localStorage.getItem('theme') === 'dark';
+  });
+
+  useEffect(() => {
+    if (isDark) {
+      document.body.classList.add('dark');
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.body.classList.remove('dark');
+      localStorage.setItem('theme', 'light');
+    }
+  }, [isDark]);
+
   return (
     <header className="app-header">
       <div className="header-brand">
@@ -13,9 +29,18 @@ export default function Header() {
           <div className="header-subtitle">Tailor your resume to every job description</div>
         </div>
       </div>
-      <div className="header-badge">
-        <span className="header-badge-dot"></span>
-        <span>ATS Optimized · 100% Private</span>
+      <div className="header-right">
+        <button
+          className="dark-mode-toggle"
+          onClick={() => setIsDark(!isDark)}
+          title={isDark ? 'Switch to Light Mode' : 'Switch to Dark Mode'}
+        >
+          {isDark ? '☀️' : '🌙'}
+        </button>
+        <div className="header-badge">
+          <span className="header-badge-dot"></span>
+          <span>ATS Optimized · 100% Private</span>
+        </div>
       </div>
     </header>
   );
