@@ -191,9 +191,9 @@ export function generateTailoredResume(resumeText, analysisResults) {
     if (missingTechnical.length > 0) {
       const missingKeywordsStr = missingTechnical.join(', ');
       if (sections.skills) {
-        sections.skills = missingKeywordsStr + ', ' + sections.skills;
+        sections.skills = sections.skills.trim() + '\nAdditional Skills: ' + missingKeywordsStr;
       } else {
-        sections.skills = missingKeywordsStr;
+        sections.skills = 'Additional Skills: ' + missingKeywordsStr;
       }
     }
   }
