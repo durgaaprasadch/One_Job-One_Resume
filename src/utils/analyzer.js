@@ -51,11 +51,13 @@ function extractKeywords(text) {
   const tokens = tokenize(text);
   const keywords = new Map();
 
-  // Single tokens
+  // Single tokens — only extract if recognized as a real skill/verb
   for (const token of tokens) {
     if (!isMeaningfulKeyword(token)) continue;
     const lower = token.toLowerCase();
     const category = categorizeKeyword(lower);
+    // Skip generic English words — only keep recognized keywords
+    if (category === 'other') continue;
     if (keywords.has(lower)) {
       keywords.get(lower).count++;
     } else {
