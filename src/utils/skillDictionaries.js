@@ -30,13 +30,13 @@ export const TECHNICAL_SKILLS = new Set([
   'graphql', 'grpc', 'protobuf', 'websocket', 'websockets',
   'microservices', 'monolith', 'serverless', 'lambda', 'event-driven',
 
-  // Databases
+  // Databases & Brokers
   'mysql', 'postgresql', 'postgres', 'sqlite', 'oracle', 'mssql',
   'sql-server', 'mariadb', 'mongodb', 'mongoose', 'dynamodb', 'cassandra',
   'couchdb', 'couchbase', 'neo4j', 'redis', 'memcached', 'elasticsearch',
   'opensearch', 'solr', 'influxdb', 'timescaledb', 'cockroachdb',
   'firestore', 'supabase', 'prisma', 'sequelize', 'typeorm', 'knex',
-  'drizzle', 'hibernate', 'mybatis', 'jpa',
+  'drizzle', 'hibernate', 'mybatis', 'jpa', 'nosql', 'sql', 'rabbitmq', 'kafka',
 
   // Cloud & DevOps
   'aws', 'azure', 'gcp', 'google-cloud', 'heroku', 'vercel', 'netlify',
@@ -91,14 +91,16 @@ export const TECHNICAL_SKILLS = new Set([
   'system-design', 'high-availability', 'fault-tolerance',
   'load-balancing', 'caching', 'cdn', 'rate-limiting',
   'horizontal-scaling', 'vertical-scaling', 'sharding', 'replication',
-  'api', 'rest', 'restful', 'soap', 'graphql', 'grpc', 'webhook',
+  'api', 'rest', 'restful', 'soap', 'graphql', 'grpc', 'webhook', 'endpoints',
+  'architecture', 'architectures', 'platform', 'scale', 'cluster',
 
   // Methodologies & General Tech
   'agile', 'scrum', 'kanban', 'lean', 'waterfall', 'sprint',
   'ci/cd', 'continuous-integration', 'continuous-deployment',
   'html', 'html5', 'css', 'css3', 'frontend', 'backend', 'fullstack', 'full-stack',
   'ui', 'ux', 'user-interface', 'user-experience', 'wireframing', 'prototyping',
-  'unit-testing', 'e2e', 'qa', 'quality-assurance', 'automation',
+  'unit-testing', 'unit-tests', 'unit-test', 'e2e', 'end-to-end', 'qa', 'quality-assurance', 'automation',
+  'visualization', 'analytics', 'open-source',
 
   // Other
   'linux', 'unix', 'windows', 'macos', 'bash', 'powershell', 'shell',

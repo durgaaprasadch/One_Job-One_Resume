@@ -31,9 +31,9 @@ function normalizeText(text) {
 
 function tokenize(text) {
   const normalized = normalizeText(text);
-  return normalized.split(/\s+/).filter(token =>
-    token.length > 1 && !/^\d+$/.test(token)
-  );
+  return normalized.split(/\s+/)
+    .map(t => t.replace(/[\.\,\;\:\!\?]+$/, '')) // strip trailing punctuation
+    .filter(token => token.length > 1 && !/^\d+$/.test(token));
 }
 
 function isMeaningfulKeyword(word) {
